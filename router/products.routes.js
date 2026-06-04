@@ -40,7 +40,7 @@ router.get("/:id",(req,res) => {
     }
 })
 
-router.post("/",(req,res) => {
+router.post("/create",(req,res) => {
     res.json({message :"crear nueva pelicula"})
 })
 
