@@ -1,3 +1,25 @@
+import express from 'express'
+import productsRouter from './router/products.router.js';
+
+
+const app = express()
+app.use("/api/productos",productsRouter)
+
+app.get('/', (req, res) => { 
+    res.json('Hola, mundo desde Express!'); 
+});
+
+
+const PORT=3000;
+
+app.listen(PORT, () => { 
+    console.log(`http://localhost:${PORT}`); 
+});
+
+
+
+
+
 const [, , method, endpoint, ...data] = process.argv;
 
 const baseUrl = "https://fakestoreapi.com"
