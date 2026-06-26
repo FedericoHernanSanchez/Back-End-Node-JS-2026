@@ -1,21 +1,40 @@
-import express from 'express'
-import productsRouter from './router/products.routes.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
+import express from 'express'
+import productsRouter from './src/router/products.router.js';
+import usersRouter from './src/router/users.router.js';
+import categoriesRouter from './src/router/categories.router.js';
+import authRouter from './src/router/auth.router.js';
+
+import cors from 'cors';
 
 const app = express()
-app.use("/api/productos",productsRouter)
+app.use(express.json())
+app.use(cors())
+
+app.use("/api/products",productsRouter)
+app.use("/api/categories",categoriesRouter)
+app.use("/api/users",usersRouter)
+app.use("/api/auth",authRouter)
 
 app.get('/', (req, res) => { 
-    res.json('Hola, mundo desde Express!'); 
+    res.send(`
+        <h1>Api de productos</h1>
+        <p>Servidor funcionando correctamente</p>
+    `); 
 });
 
 
-const PORT=3000;
+app.use((req, res) => {
+    res.status(404).json({ error : "Ruta no encontrada" });
+})
+
+const PORT= process.env.PORT || 3001;
 
 app.listen(PORT, () => { 
     console.log(`http://localhost:${PORT}`); 
 });
-
 
 
 
